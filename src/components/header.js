@@ -17,7 +17,7 @@ export default function Header() {
                 <div className="text-gray-700 text-center flex items-center align-items cursor-pointer">
                     <h1 className="flex justify-center w-full">
                         <Link to={ROUTES.DASHBOARD} aria-label="Finstagram logo">
-                            <img src="/images/logo.png" alt="Finstagram logo" className="mt-2 w-6/12"/>
+                            <img src="/images/header-logo.png" alt="Finstagram logo" className="mt-2 w-6/12"/>
                         </Link>
                     </h1>
                 </div>
