@@ -2,6 +2,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import FirebaseContext from '../context/firebase';
+import * as ROUTES from '../constants/routes';
 
 export default function Login() {
     const history = useHistory();
@@ -13,7 +14,17 @@ export default function Login() {
     const [error, setError] = useState('');
     const isInvalid = password === '' || emailsAddress === '';
 
-    const handleLogin = () => {};
+    const handleLogin = async (event) => {
+        event.preventDefault();
+        try {
+            await firebase.auth().signInWithEmailAndPassword(emailsAddress, password);
+            history.push(ROUTES.DASHBOARD);
+        } catch (error) {
+            setEmailsAddress('');
+            setPassword('');
+            setError(error.message);
+        }
+    };
 
     useEffect(() => {
         document.title = 'Login - Finstagram';
@@ -28,7 +39,7 @@ export default function Login() {
                 />
             </div>
             <div className="flex flex-col w-2/5">
-                <div className="flex flex-col items-center bg-white p-4 border border-gray-primary mb-4">
+                <div className="flex flex-col items-center bg-white p-4 border border-gray-primary mb-4 rounded">
                     <h1 className="flex justify-center w-full">
                         <img 
                             src="/images/logo.png" 
@@ -60,7 +71,7 @@ export default function Login() {
                             disabled={isInvalid}
                             type="submit"
                             className={
-                                `bg-blue-500 text-white w-full rounded h-8 font-bold
+                                `bg-blue-medium text-white w-full rounded h-8 font-bold
                                 ${isInvalid && 'opacity-50'}`
                             }
                         >Log In
@@ -69,7 +80,7 @@ export default function Login() {
                     </form>
                 </div>
                 <div className="flex justify-center items-center flex-col 
-                w-full bg-white p-4 border border-gray-primary">
+                w-full bg-white p-4 rounded border border-gray-primary">
                     <p className="text-sm">
                         Don't have an account?{` `}
                         <Link to="/signup" className="font-bold text-blue-medium">
@@ -81,10 +92,3 @@ export default function Login() {
         </div>
     );
 }
-
-// TODO: add to tailwind config
-// bg-blue-medium -> hex values
-// text-red-primary -> hex values
-// text-blue-medium -> hex values
-// text-gray-base -> hex values
-// border-gray-primary -> hex values
