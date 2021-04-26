@@ -16,10 +16,14 @@ const User = ({username, fullName}) =>
                     alt=""
                 />
             </div>
+            <div className="col-span-3">
+                <p className="font-bold text-sm">{username}</p>
+                <p className="text-sm">{fullName}</p>
+            </div>
         </Link>
     );
 
-export default User;
+export default memo(User);
 
 
 User.propTypes = {
