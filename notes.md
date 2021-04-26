@@ -8,3 +8,6 @@ stuff I used
 * react.js with hooks, components etc.
 
 * react.memo (used when you do not need to re-render the DOM???it is a higher order function, used to wrap an exported thing) 
+
+* Skeleton (react-loading-skeleton)
+    -- used as a placeholder while the app fetches data to render

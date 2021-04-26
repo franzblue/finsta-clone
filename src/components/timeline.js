@@ -11,7 +11,13 @@ export default function Timeline() {
     // if the user has no photos, tell them to create some photos
     return (
         <div className="container col-span-2">
-            <p>I am the timeline</p>
+            {!photos ? (
+                <Skeleton count={4} width={640} height={500} className="mb-5" />    
+            ) : photos?.length > 0 ? (
+                photos.map((content) => <p key={content.docId}>{content.imageSrc}</p>)
+            ) : (
+                <p className="text-center text-2xl">Follow people to see photos!</p>
+            )}
         </div>
     );
 }
