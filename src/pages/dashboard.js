@@ -1,4 +1,4 @@
-/* eslint-disable */
+
 import { useEffect } from 'react';
 import Header from '../components/header';
 import Timeline from '../components/timeline';
