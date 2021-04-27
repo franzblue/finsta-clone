@@ -11,3 +11,7 @@ stuff I used
 
 * Skeleton (react-loading-skeleton)
     -- used as a placeholder while the app fetches data to render
+
+* webpack
+    -- breaks the app into chunks. the page will only load the necessary chunks
+    -- should research this one more
