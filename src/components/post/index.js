@@ -27,7 +27,7 @@ export default function Post({ content }) {
                 docId={content.docId}
                 comments={content.comments}
                 posted={content.dateCreated}
-                commentInput={content.commentInput}
+                commentInput={commentInput}
             />
         </div>
 }
