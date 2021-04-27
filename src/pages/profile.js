@@ -2,19 +2,19 @@ import { useParams, useHistory} from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getUserByUsername } from '../services/firebase';
 import * as ROUTES from '../constants/routes';
+import Header from '../components/header';
+import UserProfile from '../components/profile';
 
 export default function Profile() {
     const { username } = useParams();
     const [user, setUser] = useState(null);
-    const [userExists, setUserExists] = useState(false);
     const history = useHistory();
 
     useEffect(() => {
         async function checkUserExists() {
-            const user = await getUserByUsername(username);
-            if (user.length > 0) {
-                setUser(user[0]);
-                setUserExists(true);
+            const [user] = await getUserByUsername(username);
+            if (user.userId) {
+                setUser(user);
             } else {
                 history.push(ROUTES.NOT_FOUND);
             }
@@ -23,9 +23,13 @@ export default function Profile() {
         checkUserExists();
     }, [username, history]);
 
-    return userExists ? (
+    // optional chain, will return null at first until useEffect grabs a user
+    return user?.username ? (
         <div className="bg-gray-background">
-            <div className="mx-auto max-w-screen-lg">{username}</div>
+            <Header />
+            <div className="mx-auto max-w-screen-lg">
+                <UserProfile user={user} />    
+            </div>
         </div>
     ) : null;
 }
