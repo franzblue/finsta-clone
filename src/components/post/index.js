@@ -4,10 +4,11 @@ import Header from './header';
 import Image from './image';
 import Actions from './actions';
 import Footer from './footer';
+import Comments from './comments';
 
 export default function Post({ content }) {
     const commentInput = useRef(null);
-    const handleFocus = () => commentInput.current.focuse();
+    const handleFocus = () => commentInput.current.focus();
 
     // components
     // -> header, image, actions (like & comment icons), footer, comments
@@ -22,6 +23,12 @@ export default function Post({ content }) {
                 handleFocus={handleFocus}
             />
             <Footer caption={content.caption} username={content.username} />
+            <Comments 
+                docId={content.docId}
+                comments={content.comments}
+                posted={content.dateCreated}
+                commentInput={content.commentInput}
+            />
         </div>
 }
 
