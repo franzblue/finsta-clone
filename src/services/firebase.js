@@ -107,18 +107,18 @@ export async function getPhotos(userId, following) {
     return photosWithUserDetails;
 }
 
-export async function getUserPhotosByUsername(username) {
-    const [user] = await getUserByUsername(username);
+export async function getUserPhotosByUserId(userId) {
     const result = await firebase
-        .firestore()
-        .collection('photos')
-        .where('userId', '==', user.userId)
-        .get();
-
-    return result.docs.map((item) => ({
-        ...item.data(),
-        docId: item.id
+      .firestore()
+      .collection('photos')
+      .where('userId', '==', userId)
+      .get();
+  
+    const photos = result.docs.map((photo) => ({
+      ...photo.data(),
+      docId: photo.id
     }));
+    return photos;
 }
 
 export async function isUserFollowingProfile(loggedInUserUsername, profileUserId) {
@@ -136,3 +136,21 @@ export async function isUserFollowingProfile(loggedInUserUsername, profileUserId
   
     return response.userId;
   }
+
+export async function toggleFollow(
+    isFollowingProfile,
+    activeUserDocId,
+    profileDocId,
+    profileUserId,
+    followingUserId
+) {
+    // 1st param: karl's doc id
+    // 2nd param: raphael's user id
+    // 3rd param: is the user following this profile? e.g. does karl follow raphael? (true/false)
+    await updateLoggedInUserFollowing(activeUserDocId, profileUserId, isFollowingProfile);
+
+    // 1st param: karl's user id
+    // 2nd param: raphael's doc id
+    // 3rd param: is the user following this profile? e.g. does karl follow raphael? (true/false)
+    await updateFollowedUserFollowers(profileDocId, followingUserId, isFollowingProfile);
+}

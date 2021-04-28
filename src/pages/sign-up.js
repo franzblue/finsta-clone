@@ -11,11 +11,11 @@ export default function SignUp() {
 
     const [username, setUsername] = useState('');
     const [fullName, setFullName] = useState('');
-    const [emailsAddress, setEmailsAddress] = useState('');
+    const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
 
     const [error, setError] = useState('');
-    const isInvalid = password === '' || emailsAddress === '' || username === '' || fullName === '';
+    const isInvalid = password === '' || emailAddress === '' || username === '' || fullName === '';
 
     const handleSignUp = async (event) => {
         event.preventDefault();
@@ -25,7 +25,7 @@ export default function SignUp() {
         try {
             const createdUserResult = await firebase
             .auth()
-            .createUserWithEmailAndPassword(emailsAddress, password);
+            .createUserWithEmailAndPassword(emailAddress, password);
 
             // authentication 
             // -> emailAddress & password & username (displayName)
@@ -38,7 +38,7 @@ export default function SignUp() {
                 userId: createdUserResult.user.uid,
                 username: username.toLocaleLowerCase(),
                 fullName,
-                emailsAddress: emailsAddress.toLocaleLowerCase(),
+                emailAddress: emailAddress.toLocaleLowerCase(),
                 following: [],
                 dateCreated: Date.now()
             });
@@ -47,7 +47,7 @@ export default function SignUp() {
         } catch (error) {
             setUsername('');
             setFullName('');
-            setEmailsAddress('');
+            setEmailAddress('');
             setPassword('');
             setError(error.message);
         }
@@ -105,8 +105,8 @@ export default function SignUp() {
                             placeholder="Email address"
                             className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 
                             border border-gray-primary rounded mb-2"
-                            onChange={({ target }) => setEmailsAddress(target.value)}
-                            value={emailsAddress}
+                            onChange={({ target }) => setEmailAddress(target.value)}
+                            value={emailAddress}
                         />
                         <input
                             aria-label="Enter your password"

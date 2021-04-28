@@ -8,19 +8,19 @@ export default function Login() {
     const history = useHistory();
     const { firebase } = useContext(FirebaseContext);
 
-    const [emailsAddress, setEmailsAddress] = useState('');
+    const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
 
     const [error, setError] = useState('');
-    const isInvalid = password === '' || emailsAddress === '';
+    const isInvalid = password === '' || emailAddress === '';
 
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
-            await firebase.auth().signInWithEmailAndPassword(emailsAddress, password);
+            await firebase.auth().signInWithEmailAndPassword(emailAddress, password);
             history.push(ROUTES.DASHBOARD);
         } catch (error) {
-            setEmailsAddress('');
+            setEmailAddress('');
             setPassword('');
             setError(error.message);
         }
@@ -57,8 +57,8 @@ export default function Login() {
                             placeholder="Email address"
                             className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 
                             border border-gray-primary rounded mb-2"
-                            onChange={({ target }) => setEmailsAddress(target.value)}
-                            value={emailsAddress}
+                            onChange={({ target }) => setEmailAddress(target.value)}
+                            value={emailAddress}
                         />
                         <input
                             aria-label="Enter your password"
