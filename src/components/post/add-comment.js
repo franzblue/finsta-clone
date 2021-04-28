@@ -13,7 +13,7 @@ export default function AddComment({docId, comments, setComments, commentInput }
     const handleSubmitComment = () => {
         event.preventDefault();
 
-        setComments([{ displayName, comment }, ...comments]);
+        setComments([...comments, { displayName, comment }]);
         // give me a new array []
         // out the new comments in there
         // add the old comments
